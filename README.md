@@ -4,11 +4,14 @@
 
 React frontend for the Mini-CRM & Support Ticketing System.
 
-## Stack
+## Stack & Why
 
-- React 18 + TypeScript
-- Vite
-- Tailwind CSS
+| Tool | Why |
+|------|-----|
+| **React 18** | Component model maps naturally to the form/dashboard split. Hooks keep state logic close to the UI that owns it. |
+| **TypeScript** | Catches type mismatches between the API response and UI components at compile time, not at runtime. |
+| **Vite** | Near-instant dev server startup and fast HMR — significantly faster than alternatives for a project of this size. |
+| **Tailwind CSS** | Utility-first CSS keeps styles co-located with markup and eliminates the need for a separate stylesheet to maintain. |
 
 ## Pages
 
