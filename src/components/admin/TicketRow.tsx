@@ -13,8 +13,11 @@ export function TicketRow({ ticket, onStatusChange }: TicketRowProps) {
 
   async function handleToggle() {
     setLoading(true);
-    await onStatusChange(ticket.id, ticket.status === 'open' ? 'resolved' : 'open');
-    setLoading(false);
+    try {
+      await onStatusChange(ticket.id, ticket.status === 'open' ? 'resolved' : 'open');
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
