@@ -23,6 +23,15 @@ export function Admin() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  function handleUnauthorized() {
+    clearAdminKey();
+    setKeyInput('');
+    setTickets([]);
+    setError(null);
+    setView('login');
+    setLoginError('Session expired. Please sign in again.');
+  }
+
   // Load tickets whenever the view switches to dashboard.
   // Skip if tickets were already populated by handleSignIn (avoids double fetch on login).
   useEffect(() => {
@@ -31,9 +40,11 @@ export function Admin() {
     setError(null);
     fetchTickets()
       .then(setTickets)
-      .catch((err: unknown) =>
-        setError(err instanceof Error ? err.message : 'Failed to load tickets'),
-      )
+      .catch((err: unknown) => {
+        const msg = err instanceof Error ? err.message : 'Failed to load tickets';
+        if (msg === 'Unauthorized') return handleUnauthorized();
+        setError(msg);
+      })
       .finally(() => setLoading(false));
   }, [view]);
 
@@ -71,7 +82,9 @@ export function Admin() {
       const updated = await updateTicketStatus(id, status);
       setTickets((prev) => prev.map((t) => (t.id === id ? updated : t)));
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : 'Failed to update ticket status');
+      const msg = err instanceof Error ? err.message : 'Failed to update ticket status';
+      if (msg === 'Unauthorized') return handleUnauthorized();
+      setError(msg);
     }
   }
 
