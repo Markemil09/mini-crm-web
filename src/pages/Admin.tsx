@@ -83,19 +83,41 @@ export function Admin() {
           <Card>
             <h1 className="mb-6 text-xl font-semibold text-text-base">Admin Access</h1>
             <form onSubmit={handleSignIn} noValidate className="flex flex-col gap-5">
-              <Input
-                label="Admin Key"
-                id="admin-key"
-                type="password"
-                value={keyInput}
-                onChange={(e) => {
-                  setKeyInput(e.target.value);
-                  if (loginError) setLoginError(null);
-                }}
-                placeholder="Enter your admin key"
-                required
-                autoComplete="current-password"
-              />
+              <div className="flex flex-col gap-1.5">
+                <Input
+                  label="Admin Key"
+                  id="admin-key"
+                  type="password"
+                  value={keyInput}
+                  onChange={(e) => {
+                    setKeyInput(e.target.value);
+                    if (loginError) setLoginError(null);
+                  }}
+                  placeholder="Enter your admin key"
+                  required
+                  autoComplete="current-password"
+                />
+                <p className="flex items-center gap-1.5 text-xs text-text-muted">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="13"
+                    height="13"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                    className="shrink-0"
+                  >
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="12" y1="16" x2="12" y2="12" />
+                    <line x1="12" y1="8" x2="12.01" y2="8" />
+                  </svg>
+                  Demo password: <span className="font-mono text-text-subtle select-all">P@ssw0rd123!</span>
+                </p>
+              </div>
               {loginError && (
                 <p
                   className="rounded-md bg-status-error-bg px-4 py-3 text-sm text-status-error"
