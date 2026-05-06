@@ -23,9 +23,10 @@ export function Admin() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Load tickets whenever the view switches to dashboard
+  // Load tickets whenever the view switches to dashboard.
+  // Skip if tickets were already populated by handleSignIn (avoids double fetch on login).
   useEffect(() => {
-    if (view !== 'dashboard') return;
+    if (view !== 'dashboard' || tickets.length > 0) return;
     setLoading(true);
     setError(null);
     fetchTickets()

@@ -49,6 +49,9 @@ export async function updateTicketStatus(id: string, status: TicketStatus): Prom
     },
     body: JSON.stringify({ status }),
   });
-  if (!res.ok) throw new Error('Failed to update ticket status');
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error((err as { error?: string }).error ?? 'Failed to update ticket status');
+  }
   return res.json();
 }
